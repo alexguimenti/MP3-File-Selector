@@ -1,8 +1,13 @@
 # MP3 File Selector and Organizer
 
-This Python script selects and copies (or creates shortcuts) for MP3 files from a source folder to a destination folder based on specific rules and limitations.
+This repository contains two Python scripts for managing your MP3 files:
+
+1. **mp3_selector.py**: Selects and copies (or creates shortcuts) for MP3 files from a source folder to a destination folder based on specific rules and limitations.
+2. **create_playlist.py**: Resolves shortcuts in a folder and creates a playlist (M3U) with the paths of the MP3 files.
 
 ## Features
+
+### MP3 Selector (`mp3_selector.py`)
 
 - **Normalize Text**: Removes accents and converts text to lowercase.
 - **Read Metadata**: Extracts artist and title information from MP3 files.
@@ -12,7 +17,14 @@ This Python script selects and copies (or creates shortcuts) for MP3 files from 
 - **Limit Songs by Size**: Limits the selection of songs based on a maximum size in GB.
 - **Copy or Create Shortcuts**: Copies selected songs or creates shortcuts (.lnk files) in the destination folder.
 
+### Playlist Creator (`create_playlist.py`)
+
+- **Resolve Shortcuts**: Resolves shortcuts (.lnk files) to get the paths of the original MP3 files.
+- **Create Playlist**: Creates a playlist (M3U) file with the paths of the resolved MP3 files.
+
 ## Configuration
+
+### MP3 Selector (`mp3_selector.py`)
 
 You can configure the script by modifying the following parameters:
 
@@ -23,40 +35,69 @@ You can configure the script by modifying the following parameters:
 - `max_size_gb`: Maximum total size of files to copy or link, in GB (default is 5).
 - `copy_mode`: If `True`, copy files; if `False`, create Windows shortcuts (.lnk).
 
+### Playlist Creator (`create_playlist.py`)
+
+You can configure the script by modifying the following parameters:
+
+- `shortcut_folder`: Path to the folder containing the shortcuts (.lnk) files.
+- `playlist_path`: Path to the playlist file (M3U) that will be created.
+
 ## How to Use
 
-1. **Clone the Repository**:
-    ```sh
-    git clone https://github.com/yourusername/mp3-file-selector.git
-    cd mp3-file-selector
-    ```
+### Clone the Repository
 
-2. **Install Dependencies**:
-    Make sure you have the required dependencies installed. You can install them using pip:
-    ```sh
-    pip install mutagen pywin32
-    ```
+```sh
+git clone https://github.com/yourusername/mp3-file-selector.git
+cd mp3-file-selector
+```
 
-3. **Configure the Script**:
-    Edit the script to set the paths and configuration parameters according to your needs:
-    ```python
-    music_folder = r"D:\Backup"
-    destination_folder = r"C:\Users\alexg\Music\Temp"
-    test_limit = 999999
-    songs_per_artist = 5
-    max_size_gb = 5
-    copy_mode = False
-    ```
+### Install Dependencies
 
-4. **Run the Script**:
-    Execute the script using Python:
-    ```sh
-    python mp3_selector.py
-    ```
+Make sure you have the required dependencies installed. You can install them using pip:
+
+```sh
+pip install mutagen pywin32
+```
+
+### MP3 Selector (mp3_selector.py)
+
+1. **Configure the Script:** Edit the script to set the paths and configuration parameters according to your needs:
+
+```py
+music_folder = r"D:\Backup"
+destination_folder = r"C:\Users\alexg\Music\Temp"
+test_limit = 999999
+songs_per_artist = 5
+max_size_gb = 5
+copy_mode = False
+```
+
+2. **Run the Script:** Execute the script using Python:
+
+```sh
+python mp3_selector.py
+```
+
+### Playlist Creator (create_playlist.py)
+
+1. **Configure the Script:** Edit the script to set the paths according to your needs:
+
+```py
+shortcut_folder = r'C:\Users\alexg\Music\Temp 2\Temp'
+playlist_path = r'C:\Users\alexg\Music\Temp 2\playlist.m3u'
+```
+
+2. **Run the Script:** Execute the script using Python:
+
+```sh
+python create_playlist.py
+```
 
 ## Script Overview
 
-### Functions
+### MP3 Selector (`mp3_selector.py`)
+
+#### Functions
 
 - **normalize_text(text)**:
     Normalizes text by removing accents and converting to lowercase.
@@ -81,4 +122,15 @@ You can configure the script by modifying the following parameters:
 
 - **copy_or_link_selected_songs(selected_songs, destination, copy_mode=True)**:
     Copies selected songs or creates shortcuts (.lnk files) in the destination folder.
+
+### Playlist Creator (`create_playlist.py`)
+
+#### Functions
+
+- **Resolve Shortcuts and Collect Paths**:
+    Resolves shortcuts (.lnk files) to get the paths of the original MP3 files.
+
+- **Create Playlist**:
+    Creates a playlist (M3U) file with the paths of the resolved MP3 files.
+
 
