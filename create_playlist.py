@@ -2,10 +2,10 @@ import os
 import win32com.client
 
 # Path to the folder with shortcuts
-shortcut_folder = 'C:\\Users\\alexg\\Music\\Temp 2\\Temp'
+shortcut_folder = 'C:\\Users\\alexg\\Music\\Temp3'
 
 # Path to the playlist file (M3U)
-playlist_path = 'C:\\Users\\alexg\\Music\\Temp 2\\playlist.m3u'
+playlist_path = 'C:\\Users\\alexg\\Music\\Temp3\\playlist.m3u'
 
 # Resolve shortcuts and collect paths
 mp3_paths = []

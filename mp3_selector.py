@@ -9,13 +9,13 @@ import win32com.client
 
 # Define the path to the folder with MP3 files
 music_folder = r"D:\Backup"
-destination_folder = r"C:\Users\alexg\Music\Temp"
+destination_folder = r"C:\Users\alexg\Music\Temp3"
 
 # Configuration
 test_limit = 999999  # Limit of files for the initial test (modifiable)
-songs_per_artist = 5  # Number of songs to select per artist in Group 1
-max_size_gb = 5  # Maximum total size of files to copy or link, in GB
-copy_mode = False  # If True, copy files; if False, create Windows shortcuts (.lnk)
+songs_per_artist = 3  # Number of songs to select per artist in Group 1
+max_size_gb = 7  # Maximum total size of files to copy or link, in GB
+copy_mode = True  # If True, copy files; if False, create Windows shortcuts (.lnk)
 
 # Convert max size in GB to bytes for comparison
 max_size_bytes = max_size_gb * (1024 ** 3)
