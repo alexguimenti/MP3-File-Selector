@@ -1,136 +1,97 @@
-# MP3 File Selector and Organizer
+# MP3 File Selector
 
-This repository contains two Python scripts for managing your MP3 files:
-
-1. **mp3_selector.py**: Selects and copies (or creates shortcuts) for MP3 files from a source folder to a destination folder based on specific rules and limitations.
-2. **create_playlist.py**: Resolves shortcuts in a folder and creates a playlist (M3U) with the paths of the MP3 files.
+A Python tool to organize and manage your MP3 files by creating custom selections based on artists and file size limits.
 
 ## Features
 
-### MP3 Selector (`mp3_selector.py`)
-
-- **Normalize Text**: Removes accents and converts text to lowercase.
-- **Read Metadata**: Extracts artist and title information from MP3 files.
-- **List MP3 Files**: Lists MP3 files in a specified folder and extracts their metadata.
-- **Group by Artist**: Groups songs by artist.
-- **Select Songs**: Selects songs based on the number of songs per artist.
-- **Limit Songs by Size**: Limits the selection of songs based on a maximum size in GB.
-- **Copy or Create Shortcuts**: Copies selected songs or creates shortcuts (.lnk files) in the destination folder.
-
-### Playlist Creator (`create_playlist.py`)
-
-- **Resolve Shortcuts**: Resolves shortcuts (.lnk files) to get the paths of the original MP3 files.
-- **Create Playlist**: Creates a playlist (M3U) file with the paths of the resolved MP3 files.
-
-## Configuration
+### MP3 Selector GUI (`mp3_selector_gui.py`)
+- User-friendly graphical interface
+- Select source and destination folders through file browser
+- Configure all settings through the interface:
+  - Maximum songs per artist
+  - Total size limit
+  - Copy mode (files or shortcuts)
+- Real-time progress display
+- Error handling with user notifications
 
 ### MP3 Selector (`mp3_selector.py`)
-
-You can configure the script by modifying the following parameters:
-
-- `music_folder`: Path to the folder containing the MP3 files.
-- `destination_folder`: Path to the destination folder where the selected files or shortcuts will be placed.
-- `test_limit`: Limit of files for the initial test (default is 999999).
-- `songs_per_artist`: Number of songs to select per artist in Group 1 (default is 5).
-- `max_size_gb`: Maximum total size of files to copy or link, in GB (default is 5).
-- `copy_mode`: If `True`, copy files; if `False`, create Windows shortcuts (.lnk).
+- Normalizes text and special characters in filenames
+- Reads MP3 metadata (ID3 tags)
+- Groups songs by artist
+- Selects songs based on configurable rules:
+  - Maximum number of songs per artist
+  - Total size limit in GB
+- Supports two output modes:
+  - Copy files to destination folder
+  - Create shortcuts (.lnk files)
 
 ### Playlist Creator (`create_playlist.py`)
+- Resolves .lnk shortcuts to find original MP3 files
+- Creates .m3u playlist files with correct file paths
 
-You can configure the script by modifying the following parameters:
+## Installation & Usage
 
-- `shortcut_folder`: Path to the folder containing the shortcuts (.lnk) files.
-- `playlist_path`: Path to the playlist file (M3U) that will be created.
+### Executable Version (Windows)
+The easiest way to use the application is through the executable file:
+1. Download the `mp3_selector_gui.exe` from the `dist` folder
+2. Double-click to run - no installation or Python required
+3. Use the graphical interface to select folders and configure settings
 
-## How to Use
+### Python Version
+If you prefer to run from source, you'll need Python installed with these requirements:
 
-### Clone the Repository
-
-```sh
-git clone https://github.com/yourusername/mp3-file-selector.git
-cd mp3-file-selector
+```bash
+pip install mutagen pywin32 tkinter
 ```
 
-### Install Dependencies
+Then you can run either:
 
-Make sure you have the required dependencies installed. You can install them using pip:
-
-```sh
-pip install mutagen pywin32
+### GUI Version (Recommended)
+1. Run the GUI version:
+```bash
+python mp3_selector_gui.py
 ```
+2. Use the interface to:
+   - Select folders
+   - Configure settings
+   - Start the selection process
 
-### MP3 Selector (mp3_selector.py)
-
-1. **Configure the Script:** Edit the script to set the paths and configuration parameters according to your needs:
-
-```py
-music_folder = r"D:\Backup"
-destination_folder = r"C:\Users\alexg\Music\Temp"
-test_limit = 999999
-songs_per_artist = 5
-max_size_gb = 5
-copy_mode = False
-```
-
-2. **Run the Script:** Execute the script using Python:
-
-```sh
+### Command Line Version
+1. Set up your configuration in the script
+2. Run the MP3 selector:
+```bash
 python mp3_selector.py
 ```
-
-### Playlist Creator (create_playlist.py)
-
-1. **Configure the Script:** Edit the script to set the paths according to your needs:
-
-```py
-shortcut_folder = r'C:\Users\alexg\Music\Temp 2\Temp'
-playlist_path = r'C:\Users\alexg\Music\Temp 2\playlist.m3u'
-```
-
-2. **Run the Script:** Execute the script using Python:
-
-```sh
+3. To create a playlist from the selected files:
+```bash
 python create_playlist.py
 ```
 
-## Script Overview
+## Configuration
 
-### MP3 Selector (`mp3_selector.py`)
+Edit the following variables in the scripts to customize behavior (only needed for command line version):
 
-#### Functions
+```python
+# in mp3_selector.py
+ORIGIN_FOLDER = "path/to/your/music/folder"
+DESTINATION_FOLDER = "path/to/output/folder"
+MAX_SONGS_PER_ARTIST = 3
+MAX_SIZE_GB = 10
+CREATE_SHORTCUTS = True  # False to copy files instead
+```
 
-- **normalize_text(text)**:
-    Normalizes text by removing accents and converting to lowercase.
+## How it Works
 
-- **read_metadata(file_path)**:
-    Reads metadata (artist and title) from an MP3 file.
+1. The script scans the origin folder for MP3 files
+2. Reads metadata to group songs by artist
+3. Randomly selects songs while respecting the configured limits
+4. Either copies files or creates shortcuts in the destination folder
+5. Optionally creates a playlist file with the selected songs
 
-- **list_mp3_files(folder, limit=None)**:
-    Lists MP3 files in a specified folder and extracts their metadata.
+## Contributing
 
-- **group_by_artist(songs)**:
-    Groups songs by artist.
+Feel free to open issues or submit pull requests with improvements.
 
-- **select_songs_based_on_artist_count(groups_by_artist, songs_per_artist)**:
-    Selects songs based on the number of songs per artist.
+## License
 
-- **limit_songs_by_size(selected_songs, max_size_bytes)**:
-    Limits the selection of songs based on a maximum size in bytes.
-
-- **normalize_path(path)**:
-    Removes special characters from the path.
-
-- **copy_or_link_selected_songs(selected_songs, destination, copy_mode=True)**:
-    Copies selected songs or creates shortcuts (.lnk files) in the destination folder.
-
-### Playlist Creator (`create_playlist.py`)
-
-#### Functions
-
-- **Resolve Shortcuts and Collect Paths**:
-    Resolves shortcuts (.lnk files) to get the paths of the original MP3 files.
-
-- **Create Playlist**:
-    Creates a playlist (M3U) file with the paths of the resolved MP3 files.
-
-
+This project is licensed under the MIT License - see the LICENSE file for details.
